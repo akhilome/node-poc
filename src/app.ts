@@ -1,4 +1,4 @@
-import { ErrorResponseObject } from '@akhilome/common';
+import { ErrorResponseObject, SuccessResponseObject } from '@akhilome/common';
 import { orion } from '@akhilome/orion';
 import express, { Request, Response, NextFunction } from 'express';
 import helmet from 'helmet';
@@ -13,6 +13,7 @@ app.use(helmet());
 app.use(PinoHttp({ logger }));
 app.use(orion());
 
+app.get('/', (_, res) => res.json(new SuccessResponseObject('Notes')));
 // default catch all handler
 app.all('*', (_, res: Response): void => {
   res.status(404).json(new ErrorResponseObject('route not defined'));
